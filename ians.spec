@@ -13,8 +13,8 @@ Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://support.intel.com/support/network/adapter/pro100/
-Exclusivearch:  %{ix86}
-Requires:       kernel(ians) = %{version}
+Exclusivearch:	%{ix86}
+Requires:	kernel(ians) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 
@@ -23,13 +23,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 This package contains the Linux driver for the Intel(R) PRO/100 family
 of 10/100 Ethernet network adapters. It contains module ians.o which
-allows you to use advanced options of that cards (vlan, team-work)
-and some utilities.
+allows you to use advanced options of that cards (vlan, team-work) and
+some utilities.
 
 %description -l pl
-Ten pakiet zawiera linuksowy modu³ ians.o do kart Intel(R) PRO/100, który
-pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan, team-work)
-oraz narzêdzia do zarz±dzania tymi opcjami.
+Ten pakiet zawiera linuksowy modu³ ians.o do kart Intel(R) PRO/100,
+który pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan,
+team-work) oraz narzêdzia do zarz±dzania tymi opcjami.
 
 %package -n kernel-net-ians
 Summary:	IANS kernel module for Intel(R) PRO/100
@@ -44,12 +44,13 @@ Provides:	kernel(ians) = %{version}
 Prereq:		/sbin/depmod
 
 %description -n kernel-net-ians
-This package contains module ians.o which allows you to use advanced options
-of Intel cards (vlan, team-work).
+This package contains module ians.o which allows you to use advanced
+options of Intel cards (vlan, team-work).
 
 %description -n kernel-net-ians -l pl
-Ten pakiet zawiera linuksowy modu³ ians.o do kart Intel(R) PRO/100, który
-pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan, team-work).
+Ten pakiet zawiera linuksowy modu³ ians.o do kart Intel(R) PRO/100,
+który pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan,
+team-work).
 
 %package -n kernel-smp-net-ians
 Summary:	IANS kernel SMP module for Intel(R) PRO/100
@@ -64,12 +65,13 @@ Provides:	kernel(ians) = %{version}
 Prereq:		/sbin/depmod
 
 %description -n kernel-smp-net-ians
-This package contains module ians.o (for SMP systems) which allows you to use
-advanced options of Intel cards (vlan, team-work).
+This package contains module ians.o (for SMP systems) which allows you
+to use advanced options of Intel cards (vlan, team-work).
 
 %description -n kernel-smp-net-ians -l pl
-Ten pakiet zawiera linuksowy (SMP) modu³ ians.o do kart Intel(R) PRO/100, który
-pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan, team-work).
+Ten pakiet zawiera linuksowy (SMP) modu³ ians.o do kart Intel(R)
+PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
+(vlan, team-work).
 
 %prep
 %setup -q -n iANS-1.6.20
