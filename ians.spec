@@ -1,7 +1,7 @@
 #
 # _without_dist_kernel - without distribution kernel
 #
-%define		_rel 4
+%define		_rel 5
 
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
