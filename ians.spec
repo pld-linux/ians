@@ -17,7 +17,7 @@ Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://support.intel.com/support/network/adapter/pro100/
 %{!?_without_dist_kernel:BuildRequires: kernel-headers}
-BuildRequires:	%{kgcc}
+BuildRequires:	%{kgcc_package}
 ExclusiveArch:	%{ix86}
 Requires:	kernel(ians) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
