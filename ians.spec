@@ -1,9 +1,7 @@
 #
 # _without_dist_kernel - without distribution kernel
 #
-%define         _kernel_ver 	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
-%define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
-%define		_rel 3
+%define		_rel 4
 
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
@@ -94,8 +92,9 @@ install -d $RPM_BUILD_ROOT/%{_sysconfdir}
 cd src
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 cd ..
-# clean out the files created by running depmod in make install
-rm -f $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/modules.*
+
+install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}
+install bin/ia32/ians.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/ians.o
 
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp
 install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/ians.o
