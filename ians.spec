@@ -13,6 +13,7 @@ Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}a.tar.gz
 URL:		http://support.intel.com/support/network/adapter/pro100/
 %{!?_without_dist_kernel:BuildRequires: kernel-headers}
+BuildRequires:	kernel-source
 BuildRequires:	%{kgcc_package}
 ExclusiveArch:	%{ix86}
 %{!?_without_dist_kernel:Requires:	kernel(ians) = %{version}}
