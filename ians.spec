@@ -6,15 +6,15 @@
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
-Version:	1.3.34
-Release:	2
+Version:	1.4.27
+Release:	1
 Group:		Base/Kernel
 Group(de):	Grundsätzlich/Kern
 Group(pl):	Podstawowe/J±dro
 License:	BSD
 Vendor:		Intel Corporation
-Source0:	ftp://download.intel.com/df-support/2895/eng/%{name}-%{version}.tar.gz
-Patch0:		kernel-net-%{name}-makefile.patch
+Source0:	ftp://download.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
+Patch0:		%{name}-makefile.patch
 URL:		http://support.intel.com/support/network/adapter/pro100/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
