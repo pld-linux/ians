@@ -5,7 +5,7 @@
 
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
-Name:		linux-net-ians
+Name:		kernel-net-ians
 Version:	1.3.34
 Release:	1@%{_kernel_ver}%{smpstr}
 Group:		Base/Kernel
