@@ -5,7 +5,7 @@ Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
 Version:	1.7.65
-%define	_rel	2
+%define	_rel	3
 Release:	%{_rel}
 Group:		Base/Kernel
 License:	BSD (see LICENSE_BINARY)
@@ -116,10 +116,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc README LICENSE install_scripts
 %attr(755,root,root) /sbin/*
 %attr(644,root,root) %{_mandir}/man*/*
 %dir %attr(755,root,root) %{_sysconfdir}
-%doc README LICENSE install_scripts
 
 %files -n kernel-net-ians
 %defattr(644,root,root,755)
