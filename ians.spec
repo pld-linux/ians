@@ -1,11 +1,11 @@
 %define         _kernel_ver 	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
-%define		_rel 4
+%define		_rel 1
 
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
-Version:	1.5.18c
+Version:	1.6.20b
 Release:	%{_rel}
 Group:		Base/Kernel
 Group(de):	Grundsätzlich/Kern
@@ -78,15 +78,15 @@ Ten pakiet zawiera linuksowy (SMP) modu³ ians.o do kart Intel(R) PRO/100, który
 pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan, team-work).
 
 %prep
-%setup -q -n iANS-1.5.18
+%setup -q -n iANS-1.6.20
 %patch -p0
 
 %build
 cd src
 %{__make} CC="kgcc -DCONFIG_X86_LOCAL_APIC" SMP=1
-mv bin/ia32/ians.o bin/ia32/ians-smp.o
+mv ../bin/ia32/ians.o ../bin/ia32/ians-smp.o
 %{__make} clean
-%{__make}
+%{__make} SMP=0
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -98,10 +98,10 @@ cd ..
 # clean out the files created by running depmod in make install
 rm -f $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/modules.*
 
-gzip -9nf README LICENSE_BINARY src/LICENSE_OPEN_SOURCE
-
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp
-install src/bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/ians.o
+install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/ians.o
+
+gzip -9nf README LICENSE bin/LICENSE_BINARY src/LICENSE_OPEN_SOURCE
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -123,7 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /sbin/*
 %attr(644,root,root) %{_mandir}/man*/*
 %dir %attr(755,root,root) %{_sysconfdir}
-%doc *.gz install_scripts src/*.gz
+%doc *.gz install_scripts src/*.gz bin/*.gz
 
 %files -n kernel-net-ians
 %defattr(644,root,root,755)
