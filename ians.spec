@@ -4,13 +4,13 @@
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
-Version:	1.7.33
-%define	_rel	5
+Version:	1.7.65
+%define	_rel	1
 Release:	%{_rel}
 Group:		Base/Kernel
 License:	BSD (see LICENSE_BINARY)
 Vendor:		Intel Corporation
-Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}a.tar.gz
+Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
 URL:		http://support.intel.com/support/network/adapter/pro100/
 %{!?_without_dist_kernel:BuildRequires: kernel-source}
 BuildRequires:	%{kgcc_package}
@@ -72,7 +72,7 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 (vlan, team-work).
 
 %prep
-%setup -q -n iANS-%{version}a
+%setup -q -n iANS-%{version}
 
 %build
 cd src
