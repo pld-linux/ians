@@ -1,6 +1,6 @@
 %define         _kernel_ver 	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
-%define		_rel 1
+%define		_rel 2
 
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
@@ -36,8 +36,7 @@ Summary:	IANS kernel module for Intel(R) PRO/100
 Summary(pl):	Modu³ IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
-Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
+%{!?_without_dist_kernel:Requires:	kernel-up = %{_kernel_ver}}
 Requires:	ians = %{version}
 Obsoletes:	linux-smp-net-ians
 Provides:	kernel(ians) = %{version}
@@ -57,8 +56,7 @@ Summary:	IANS kernel SMP module for Intel(R) PRO/100
 Summary(pl):	Modu³ SMP IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
-Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
+%{!?_without_dist_kernel:Requires:	kernel-smp = %{_kernel_ver}}
 Requires:	ians = %{version}
 Obsoletes:	linux-net-ians
 Provides:	kernel(ians) = %{version}
