@@ -14,7 +14,7 @@ Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/4834/eng/iANS-%{version}.tar.gz
 # Source0-md5:	1dfef0f06d1b76c74e7d9d73cdf32af3
 URL:		http://support.intel.com/support/network/adapter/pro100/
-%{!?_without_dist_kernel:BuildRequires: kernel-source > 2.4.0}
+%{!?_without_dist_kernel:BuildRequires:	kernel-source > 2.4.0}
 BuildRequires:	%{kgcc_package}
 BuildRequires:	rpmbuild(macros) >= 1.118
 ExclusiveArch:	%{ix86}
