@@ -8,8 +8,6 @@ Name:		ians
 Version:	1.6.20b
 Release:	%{_rel}
 Group:		Base/Kernel
-Group(de):	Grundsätzlich/Kern
-Group(pl):	Podstawowe/J±dro
 License:	BSD, see LICENSE_BINARY
 Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
@@ -38,8 +36,6 @@ Summary:	IANS kernel module for Intel(R) PRO/100
 Summary(pl):	Modu³ IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-Group(de):	Grundsätzlich/Kern
-Group(pl):	Podstawowe/J±dro
 Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
 Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
 Requires:	ians = %{version}
@@ -60,8 +56,6 @@ Summary:	IANS kernel SMP module for Intel(R) PRO/100
 Summary(pl):	Modu³ SMP IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-Group(de):	Grundsätzlich/Kern
-Group(pl):	Podstawowe/J±dro
 Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
 Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
 Requires:	ians = %{version}
