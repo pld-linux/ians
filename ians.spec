@@ -17,7 +17,7 @@ URL:		http://support.intel.com/support/network/adapter/pro100/
 %{!?_without_dist_kernel:BuildRequires: kernel-headers}
 BuildRequires:	%{kgcc_package}
 ExclusiveArch:	%{ix86}
-Requires:	kernel(ians) = %{version}
+%{!?_without_dist_kernel:Requires:	kernel(ians) = %{version}}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 
