@@ -5,7 +5,7 @@ Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
 Version:	2.0.7
-%define	_rel	0.1
+%define	_rel	1
 Release:	%{_rel}
 Group:		Base/Kernel
 License:	BSD (see LICENSE_BINARY)
