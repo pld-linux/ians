@@ -6,12 +6,12 @@
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
-Version:	1.5.17
+Version:	1.5.18c
 Release:	1
 Group:		Base/Kernel
 Group(de):	Grundsätzlich/Kern
 Group(pl):	Podstawowe/J±dro
-License:	BSD, see LICENSE
+License:	BSD, see LICENSE_BINARY
 Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
@@ -53,7 +53,7 @@ Ten pakiet zawiera Linuksowy modu³ ians.o do kart Intel(R) PRO/100, który
 pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan, team-work).
 
 %prep
-%setup -q -n iANS-%{version}
+%setup -q -n iANS-1.5.18
 %patch -p0
 
 %build
@@ -70,7 +70,7 @@ cd ..
 # clean out the files created by running depmod in make install
 rm -f $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/modules.*
 
-gzip -9nf README LICENSE 
+gzip -9nf README LICENSE_BINARY src/LICENSE_OPEN_SOURCE
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -87,4 +87,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_mandir}/man*/*
 %attr(755,root,root) /sbin/*
 %dir %attr(755,root,root) %{_sysconfdir}
-%doc *.gz install_scripts
+%doc *.gz install_scripts src/*.gz
