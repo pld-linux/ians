@@ -1,39 +1,44 @@
---- ./Makefile.org	Wed Aug 22 12:52:45 2001
-+++ ./Makefile	Mon Nov  5 21:25:32 2001
-@@ -143,13 +143,13 @@
+--- ./src/Makefile.org	Tue Nov 20 11:26:49 2001
++++ ./src/Makefile	Sat Dec 15 15:22:48 2001
+@@ -210,12 +210,12 @@
  # we will use the first valid entry in the search path
  MAN_PATH := $(firstword $(MSP))
  ifeq (,$(MAN_PATH))
 -  MAN_PATH := /usr/man
 +  MAN_PATH := /usr/share/man
  endif
- MAN_DIR1=$(MAN_PATH)/$(MAN_TYPE1)
- MAN_DIR7=$(MAN_PATH)/$(MAN_TYPE7)
+ MAN_DIR=$(MAN_PATH)/$(MAN_TYPE)
  
- # pick an appropriate BIN path
+ # pick an appropriate BIN install path
 -BIN_DIR = /usr/sbin
 +BIN_DIR = /sbin
  
- # look for SMP support in config.h
- SMP := $(shell $(CC) -E -dM $(KCFG_FILE) | grep CONFIG_SMP | awk '{ print $$3; }')
-@@ -202,13 +202,13 @@
- 	cd src && (make veryclean)
  
- install: all  $(MANFILE1).gz $(MANFILE7).gz 
--	/usr/bin/install -D -b -m 644 bin/ians.o $(MODULES_DIR)/ians.o
--	/sbin/depmod -a $(KVER)
--	@echo "module installed under $(MODULES_DIR)"
--	/usr/bin/install -b -m 744 bin/ianscfg	$(BIN_DIR)
--	/usr/bin/install -b -m 744 bin/iansd	$(BIN_DIR)
--	/usr/bin/install -D -m 644 $(MANFILE1).gz $(MAN_DIR1)/$(MANFILE1).gz
--	/usr/bin/install -D -m 644 $(MANFILE7).gz $(MAN_DIR7)/$(MANFILE7).gz
-+	mkdir -p $(DESTDIR)$(MODULES_DIR) $(DESTDIR)$(BIN_DIR) $(DESTDIR)$(MAN_DIR)
-+	/usr/bin/install -D -b -m 644 bin/ians.o $(DESTDIR)$(MODULES_DIR)/ians.o
-+	@echo "module installed under $(DESTDIR)$(MODULES_DIR)"
-+	/usr/bin/install -b -m 744 bin/ianscfg	$(DESTDIR)$(BIN_DIR)/ianscfg
-+	/usr/bin/install -b -m 744 bin/iansd	$(DESTDIR)$(BIN_DIR)/iansd
-+	/usr/bin/install -D -m 644 $(MANFILE1).gz $(DESTDIR)$(MAN_DIR1)/$(MANFILE1).gz
-+	/usr/bin/install -D -m 644 $(MANFILE7).gz $(DESTDIR)$(MAN_DIR7)/$(MANFILE7).gz
+ ###########################################################################
+@@ -298,17 +298,17 @@
+ 	@echo "Compiling $< ..."
+ 	$(CC) $(CFLAGS) -c $< -o $@
  
+-$(MANFILE).gz: $(MANFILE)
+-	gzip -c $< > $@
++#$(MANFILE).gz: $(MANFILE)
++#	gzip -c $< > $@
+ 
+-install: all $(MANFILE).gz
+-	install -D -b -m 644 $(TARGET)		$(MOD_DIR)/ians.o
+-	install -b -m 744 bin/$(ARCH)/ianscfg	$(BIN_DIR)
+-	install -b -m 744 bin/$(ARCH)/iansd	$(BIN_DIR)
+-	install -D -m 644 $(MANFILE).gz         $(MAN_DIR)/$(MANFILE).gz
++install: all $(MANFILE)
++	install -D -b -m 644 $(TARGET)		$(DESTDIR)$(MOD_DIR)/ians.o
++	install -D -b -m 744 bin/$(ARCH)/ianscfg	$(DESTDIR)$(BIN_DIR)/ianscfg
++	install -D -b -m 744 bin/$(ARCH)/iansd	$(DESTDIR)$(BIN_DIR)/iansd
++	install -D -m 644 $(MANFILE)		$(DESTDIR)$(MAN_DIR)/$(MANFILE)
+ 
+-	depmod -a $(KVER)
+-	@echo "module installed under $(MOD_DIR)"
++#	depmod -a $(KVER)
++	@echo "module installed under $(DESTDIR)$(MOD_DIR)"
  
  uninstall:
+ 	if [ -e $(MOD_DIR)/ians.o ] ; then \
