@@ -9,7 +9,7 @@ Name:		ians
 Version:	1.6.20b
 Release:	%{_rel}
 Group:		Base/Kernel
-License:	BSD, see LICENSE_BINARY
+License:	BSD (see LICENSE_BINARY)
 Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
