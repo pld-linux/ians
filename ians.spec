@@ -78,7 +78,7 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 cd src
 %{__make} CC="%{kgcc} -DCONFIG_X86_LOCAL_APIC" SMP=1 KSRC=/usr/src/linux
 mv -f ../bin/ia32/ians.o ../bin/ia32/ians-smp.o
-%{__make} clean
+%{__make} clean KSRC=/usr/src/linux
 %{__make} SMP=0 KSRC=/usr/src/linux
 
 %install
