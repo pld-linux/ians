@@ -1,6 +1,6 @@
---- ./src/Makefile.org	Tue Nov 20 11:26:49 2001
-+++ ./src/Makefile	Sat Dec 15 15:22:48 2001
-@@ -210,12 +210,12 @@
+--- ./src/Makefile.org  Fri Feb 22 23:12:36 2002
++++ ./src/Makefile      Fri Feb 22 23:14:13 2002
+@@ -156,12 +156,12 @@
  # we will use the first valid entry in the search path
  MAN_PATH := $(firstword $(MSP))
  ifeq (,$(MAN_PATH))
@@ -8,37 +8,43 @@
 +  MAN_PATH := /usr/share/man
  endif
  MAN_DIR=$(MAN_PATH)/$(MAN_TYPE)
- 
+
  # pick an appropriate BIN install path
 -BIN_DIR = /usr/sbin
 +BIN_DIR = /sbin
- 
- 
+
  ###########################################################################
-@@ -298,17 +298,17 @@
+ # Driver files
+--- ./src/Makefile.org	Fri Feb 22 22:45:52 2002
++++ ./src/Makefile	Fri Feb 22 23:05:44 2002
+@@ -247,20 +247,19 @@
  	@echo "Compiling $< ..."
  	$(CC) $(CFLAGS) -c $< -o $@
  
--$(MANFILE).gz: $(MANFILE)
--	gzip -c $< > $@
-+#$(MANFILE).gz: $(MANFILE)
-+#	gzip -c $< > $@
+-$(MAN_GZ): $(MANFILE)
++$(MAN_GZ): $(MANFILE)dd
+ 	gzip -c $< > $@
  
 -install: all $(MANFILE).gz
--	install -D -b -m 644 $(TARGET)		$(MOD_DIR)/ians.o
--	install -b -m 744 bin/$(ARCH)/ianscfg	$(BIN_DIR)
--	install -b -m 744 bin/$(ARCH)/iansd	$(BIN_DIR)
--	install -D -m 644 $(MANFILE).gz         $(MAN_DIR)/$(MANFILE).gz
+-	install -D -m 444 $(CORE_DIR)/$(MODULE)     $(MOD_DIR)/$(MODULE)
+-	install -D -m 544 $(CORE_DIR)/$(CORE_BIN1)  $(BIN_DIR)/$(CORE_BIN1)
+-	install -D -m 544 $(CORE_DIR)/$(CORE_BIN2)  $(BIN_DIR)/$(CORE_BIN2)
+-	install -D -m 444 $(MAN_GZ)                 $(MAN_DIR)/$(MAN_GZ)
 +install: all $(MANFILE)
-+	install -D -b -m 644 $(TARGET)		$(DESTDIR)$(MOD_DIR)/ians.o
-+	install -D -b -m 744 bin/$(ARCH)/ianscfg	$(DESTDIR)$(BIN_DIR)/ianscfg
-+	install -D -b -m 744 bin/$(ARCH)/iansd	$(DESTDIR)$(BIN_DIR)/iansd
-+	install -D -m 644 $(MANFILE)		$(DESTDIR)$(MAN_DIR)/$(MANFILE)
++	install -D -m 444 $(CORE_DIR)/$(MODULE)     $(DESTDIR)$(MOD_DIR)/$(MODULE)
++	install -D -m 544 $(CORE_DIR)/$(CORE_BIN1)  $(DESTDIR)$(BIN_DIR)/$(CORE_BIN1)
++	install -D -m 544 $(CORE_DIR)/$(CORE_BIN2)  $(DESTDIR)$(BIN_DIR)/$(CORE_BIN2)
++	install -D -m 444 $(MANFILE)                $(DESTDIR)$(MAN_DIR)/$(MANFILE)
  
 -	depmod -a $(KVER)
--	@echo "module installed under $(MOD_DIR)"
-+#	depmod -a $(KVER)
-+	@echo "module installed under $(DESTDIR)$(MOD_DIR)"
+-	@echo "module $(MODULE) installed under $(MOD_DIR)"
+-	@echo "utility $(CORE_BIN1) installed under $(BIN_DIR)"
+-	@echo "daemon $(CORE_BIN2) installed under $(BIN_DIR)"
+-	@echo "man page $(MAN_GZ) installed under $(MAN_DIR)"
++	@echo "module $(MODULE) installed under $(DESTDIR)$(MOD_DIR)"
++	@echo "utility $(CORE_BIN1) installed under $(DESTDIR)$(BIN_DIR)"
++	@echo "daemon $(CORE_BIN2) installed under $(DESTDIR)$(BIN_DIR)"
++	@echo "man page $(MANFILE) installed under $(DESTDIR)$(MAN_DIR)"
  
  uninstall:
- 	if [ -e $(MOD_DIR)/ians.o ] ; then \
+ 	if [ -e $(MOD_DIR)/$(MODULE) ] ; then \
