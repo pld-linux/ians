@@ -87,5 +87,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_mandir}/man*/*
 %attr(755,root,root) /sbin/*
 %dir %attr(755,root,root) %{_sysconfdir}
-%attr(755,root,root) %ghost %{_sysconfdir}/ians.conf
 %doc *.gz install_scripts
