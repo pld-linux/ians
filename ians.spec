@@ -76,10 +76,10 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 
 %build
 cd src
-%{__make} CC="%{kgcc} -DCONFIG_X86_LOCAL_APIC" SMP=1 KSRC=/usr/src/linux
+%{__make} CC="%{kgcc} -DCONFIG_X86_LOCAL_APIC" SMP=1 KSRC=%{_kernelsrcdir}
 mv -f ../bin/ia32/ians.o ../bin/ia32/ians-smp.o
-%{__make} clean KSRC=/usr/src/linux
-%{__make} SMP=0 KSRC=/usr/src/linux
+%{__make} clean KSRC=%{_kernelsrcdir}
+%{__make} SMP=0 KSRC=%{_kernelsrcdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -91,7 +91,7 @@ cd src
 %{__make} MAN_DIR=/usr/share/man \
 	BIN_DIR=/sbin \
 	INSTALL_ROOT=$RPM_BUILD_ROOT \
-	KSRC=/usr/src/linux \
+	KSRC=%{_kernelsrcdir} \
 	install
 cd ..
 
