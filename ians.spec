@@ -13,7 +13,7 @@ Group(de):	Grundsätzlich/Kern
 Group(pl):	Podstawowe/J±dro
 License:	BSD, see LICENSE
 Vendor:		Intel Corporation
-Source0:	ftp://download.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
+Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://support.intel.com/support/network/adapter/pro100/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
