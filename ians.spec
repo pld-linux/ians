@@ -79,27 +79,32 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 
 %build
 cd src
-%{__make} CC="%{kgcc} -DCONFIG_X86_LOCAL_APIC" SMP=1 KSRC=%{_kernelsrcdir}
+%{__make} \
+	CC="%{kgcc} -DCONFIG_X86_LOCAL_APIC" \
+	SMP=1 \
+	KSRC=%{_kernelsrcdir}
+
 mv -f ../bin/ia32/ians.o ../bin/ia32/ians-smp.o
-%{__make} clean KSRC=%{_kernelsrcdir}
-%{__make} SMP=0 KSRC=%{_kernelsrcdir}
+%{__make} clean \
+	KSRC=%{_kernelsrcdir}
+
+%{__make} \
+	SMP=0 \
+	KSRC=%{_kernelsrcdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-install -d $RPM_BUILD_ROOT/%{_sysconfdir}
+install -d $RPM_BUILD_ROOT%{_sysconfdir}
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc
-cd src
-%{__make} MAN_DIR=/usr/share/man \
+
+%{__make} install -C src \
+	MAN_DIR=/usr/share/man \
 	BIN_DIR=/sbin \
 	INSTALL_ROOT=$RPM_BUILD_ROOT \
-	KSRC=%{_kernelsrcdir} \
-	install
-cd ..
+	KSRC=%{_kernelsrcdir}
 
 install bin/ia32/ians.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/ians.o
-
 install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/ians.o
 
 %clean
