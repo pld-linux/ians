@@ -91,6 +91,7 @@ cd src
 %{__make} MAN_DIR=/usr/share/man \
 	BIN_DIR=/sbin \
 	INSTALL_ROOT=$RPM_BUILD_ROOT \
+	KSRC=/usr/src/linux \
 	install
 cd ..
 
