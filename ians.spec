@@ -1,12 +1,13 @@
 #
 # _without_dist_kernel - without distribution kernel
 #
-%define		_rel 5
+%define		_rel 1
+%define		_ver 1.6.30
 
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
-Version:	1.6.20b
+Version:	%{_ver}a
 Release:	%{_rel}
 Group:		Base/Kernel
 License:	BSD (see LICENSE_BINARY)
@@ -75,7 +76,7 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 (vlan, team-work).
 
 %prep
-%setup -q -n iANS-1.6.20
+%setup -q -n iANS-%{_ver}
 %patch -p0
 
 %build
@@ -99,7 +100,7 @@ install bin/ia32/ians.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/ians.o
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp
 install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/ians.o
 
-gzip -9nf README LICENSE bin/LICENSE_BINARY src/LICENSE_OPEN_SOURCE
+gzip -9nf README LICENSE
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -121,7 +122,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /sbin/*
 %attr(644,root,root) %{_mandir}/man*/*
 %dir %attr(755,root,root) %{_sysconfdir}
-%doc *.gz install_scripts src/*.gz bin/*.gz
+%doc *.gz install_scripts
 
 %files -n kernel-net-ians
 %defattr(644,root,root,755)
