@@ -18,12 +18,21 @@ Patch0:		%{name}-makefile.patch
 Url:		http://support.intel.com/support/network/adapter/pro100/
 Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
 Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
+Obsoletes:	linux-net-ians
+Obsoletes:	ians
+Provides:	ians
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_sysconfdir	/etc/ians/
 
 %description
 This package contains the Linux driver for the Intel(R) PRO/100 family
-of 10/100 Ethernet network adapters.
+of 10/100 Ethernet network adapters. It contains module ians.o which
+allows you to use advanced options of that cards (vlan, team-work).
 
+%description -l pl
+Ten pakiet zawiera Linux'owy modu³ ians.o do kart Intel(R) PRO/100, który 
+pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan, team-work).
 
 %prep
 %setup -q -n iANS-%{version}
@@ -34,6 +43,8 @@ of 10/100 Ethernet network adapters.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT/%{_sysconfdir}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
@@ -55,3 +66,4 @@ depmod -a
 %attr(644,root,root) /lib/modules/%{_kernel_ver}/*
 %attr(644,root,root) %{_mandir}/man*/*
 %attr(755,root,root) /sbin/*
+%dir %attr(755,root,root) %{_sysconfdir}
