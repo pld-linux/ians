@@ -90,15 +90,15 @@ mv -f ../bin/ia32/ians.o ../bin/ia32/ians-smp.o
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}
+install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
+install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc
 cd src
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 cd ..
 
-install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}
-install bin/ia32/ians.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/ians.o
+install bin/ia32/ians.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/ians.o
 
-install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp
-install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/ians.o
+install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/ians.o
 
 gzip -9nf README LICENSE
 
@@ -126,8 +126,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n kernel-net-ians
 %defattr(644,root,root,755)
-%attr(644,root,root) /lib/modules/%{_kernel_ver}/*
+%attr(644,root,root) /lib/modules/%{_kernel_ver}/misc/*
 
 %files -n kernel-smp-net-ians
 %defattr(644,root,root,755)
-%attr(644,root,root) /lib/modules/%{_kernel_ver}smp/*
+%attr(644,root,root) /lib/modules/%{_kernel_ver}smp/misc/*
