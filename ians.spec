@@ -1,6 +1,9 @@
+#
+# _without_dist_kernel - without distribution kernel
+#
 %define         _kernel_ver 	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
-%define		_rel 2
+%define		_rel 3
 
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
@@ -13,7 +16,9 @@ Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://support.intel.com/support/network/adapter/pro100/
-Exclusivearch:	%{ix86}
+%{!?_without_dist_kernel:BuildRequires: kernel-headers}
+BuildRequires:	%{kgcc}
+ExclusiveArch:	%{ix86}
 Requires:	kernel(ians) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -36,11 +41,11 @@ Summary:	IANS kernel module for Intel(R) PRO/100
 Summary(pl):	Modu³ IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-%{!?_without_dist_kernel:Requires:	kernel-up = %{_kernel_ver}}
-Requires:	ians = %{version}
-Obsoletes:	linux-smp-net-ians
-Provides:	kernel(ians) = %{version}
 Prereq:		/sbin/depmod
+%{!?_without_dist_kernel:%requires_releq_kernel_up}
+Requires:	ians = %{version}
+Provides:	kernel(ians) = %{version}
+Obsoletes:	linux-smp-net-ians
 
 %description -n kernel-net-ians
 This package contains module ians.o which allows you to use advanced
@@ -56,11 +61,11 @@ Summary:	IANS kernel SMP module for Intel(R) PRO/100
 Summary(pl):	Modu³ SMP IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-%{!?_without_dist_kernel:Requires:	kernel-smp = %{_kernel_ver}}
-Requires:	ians = %{version}
-Obsoletes:	linux-net-ians
-Provides:	kernel(ians) = %{version}
 Prereq:		/sbin/depmod
+%{!?_without_dist_kernel:%requires_releq_kernel_smp}
+Requires:	ians = %{version}
+Provides:	kernel(ians) = %{version}
+Obsoletes:	linux-net-ians
 
 %description -n kernel-smp-net-ians
 This package contains module ians.o (for SMP systems) which allows you
@@ -77,8 +82,8 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 
 %build
 cd src
-%{__make} CC="kgcc -DCONFIG_X86_LOCAL_APIC" SMP=1
-mv ../bin/ia32/ians.o ../bin/ia32/ians-smp.o
+%{__make} CC="%{kgcc} -DCONFIG_X86_LOCAL_APIC" SMP=1
+mv -f ../bin/ia32/ians.o ../bin/ia32/ians-smp.o
 %{__make} clean
 %{__make} SMP=0
 
