@@ -2,18 +2,17 @@
 # _without_dist_kernel - without distribution kernel
 #
 %define		_rel 1
-%define		_ver 1.6.30
+%define		_ver 1.7.17
 
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
-Version:	%{_ver}a
+Version:	%{_ver}
 Release:	%{_rel}
 Group:		Base/Kernel
 License:	BSD (see LICENSE_BINARY)
 Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/2895/eng/iANS-%{version}.tar.gz
-Patch0:		%{name}-makefile.patch
 URL:		http://support.intel.com/support/network/adapter/pro100/
 %{!?_without_dist_kernel:BuildRequires: kernel-headers}
 BuildRequires:	%{kgcc_package}
@@ -77,7 +76,6 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 
 %prep
 %setup -q -n iANS-%{_ver}
-%patch -p0
 
 %build
 cd src
@@ -93,14 +91,15 @@ install -d $RPM_BUILD_ROOT/%{_sysconfdir}
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc
 cd src
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} MAN_DIR=/usr/share/man \
+	BIN_DIR=/sbin \
+	INSTALL_ROOT=$RPM_BUILD_ROOT \
+	install
 cd ..
 
 install bin/ia32/ians.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/ians.o
 
 install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/ians.o
-
-gzip -9nf README LICENSE
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -122,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /sbin/*
 %attr(644,root,root) %{_mandir}/man*/*
 %dir %attr(755,root,root) %{_sysconfdir}
-%doc *.gz install_scripts
+%doc README LICENSE install_scripts
 
 %files -n kernel-net-ians
 %defattr(644,root,root,755)
