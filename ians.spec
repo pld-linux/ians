@@ -1,4 +1,5 @@
 #
+# Conditional build:
 # _without_dist_kernel - without distribution kernel
 #
 Summary:	IANS utility for Intel(R) PRO/100
@@ -36,8 +37,8 @@ Summary:	IANS kernel module for Intel(R) PRO/100
 Summary(pl):	Modu³ IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-Prereq:		/sbin/depmod
 %{!?_without_dist_kernel:%requires_releq_kernel_up}
+Requires(post,postun):	/sbin/depmod
 Requires:	ians = %{version}
 Provides:	kernel(ians) = %{version}
 Obsoletes:	linux-smp-net-ians
@@ -56,8 +57,8 @@ Summary:	IANS kernel SMP module for Intel(R) PRO/100
 Summary(pl):	Modu³ SMP IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-Prereq:		/sbin/depmod
 %{!?_without_dist_kernel:%requires_releq_kernel_smp}
+Requires(post,postun):	/sbin/depmod
 Requires:	ians = %{version}
 Provides:	kernel(ians) = %{version}
 Obsoletes:	linux-net-ians
@@ -103,16 +104,16 @@ install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/i
 rm -rf $RPM_BUILD_ROOT
 
 %post	-n kernel-net-ians
-/sbin/depmod -a
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
 
 %postun	-n kernel-net-ians
-/sbin/depmod -a
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
 
 %post	-n kernel-smp-net-ians
-/sbin/depmod -a
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver}smp %{_kernel_ver}smp
 
 %postun	-n kernel-smp-net-ians
-/sbin/depmod -a
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver}smp %{_kernel_ver}smp
 
 %files
 %defattr(644,root,root,755)
