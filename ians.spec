@@ -7,7 +7,7 @@ Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
 Version:	1.5.18c
-Release:	1
+Release:	2
 Group:		Base/Kernel
 Group(de):	Grundsätzlich/Kern
 Group(pl):	Podstawowe/J±dro
@@ -38,9 +38,9 @@ Group(de):	Grundsätzlich/Kern
 Group(pl):	Podstawowe/J±dro
 Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
 Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}
+Requires:	ians = %{version}
 Obsoletes:	linux-net-ians
-Obsoletes:	ians
-Provides:	ians
+Provides:	kernel(ians) = %{version}
 Prereq:		/sbin/depmod
 
 %description -n kernel%{smpstr}-net-ians
@@ -81,10 +81,13 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-n kernel%{smpstr}-net-ians
 /sbin/depmod -a
 
+%files
+%defattr(644,root,root,755)
+%attr(755,root,root) /sbin/*
+%attr(644,root,root) %{_mandir}/man*/*
+%dir %attr(755,root,root) %{_sysconfdir}
+%doc *.gz install_scripts src/*.gz
+
 %files -n kernel%{smpstr}-net-ians
 %defattr(644,root,root,755)
 %attr(644,root,root) /lib/modules/%{_kernel_ver}/*
-%attr(644,root,root) %{_mandir}/man*/*
-%attr(755,root,root) /sbin/*
-%dir %attr(755,root,root) %{_sysconfdir}
-%doc *.gz install_scripts src/*.gz
