@@ -1,13 +1,11 @@
 #
 # _without_dist_kernel - without distribution kernel
 #
-%define		_rel 1
-%define		_ver 1.7.17
-
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
-Version:	%{_ver}
+Version:	1.7.17
+%define	_rel	2
 Release:	%{_rel}
 Group:		Base/Kernel
 License:	BSD (see LICENSE_BINARY)
@@ -75,7 +73,7 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 (vlan, team-work).
 
 %prep
-%setup -q -n iANS-%{_ver}
+%setup -q -n iANS-%{_version}
 
 %build
 cd src
