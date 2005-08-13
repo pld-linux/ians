@@ -2,19 +2,22 @@
 # Conditional build:
 # _without_dist_kernel - without distribution kernel
 #
+
+%define         _kernelsrcdir           /usr/src/linux-2.4
+
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
-Version:	2.3.63b
+Version:	3.4.3a
 %define	_rel	1
 Release:	%{_rel}
 Group:		Base/Kernel
 License:	BSD (see LICENSE_BINARY)
 Vendor:		Intel Corporation
 Source0:	ftp://aiedownload.intel.com/df-support/5600/eng/ians-%{version}.tar.gz
-# Source0-md5:	0cd6740d0d14806a400f23e09835ca90
+# Source0-md5:	6030f3ef19cf0e04cb9c83ecdca50c39
 URL:		http://support.intel.com/support/network/adapter/pro100/
-%{!?_without_dist_kernel:BuildRequires:	kernel-source > 2.4.0}
+%{!?_without_dist_kernel:BuildRequires:	kernel24-source > 2.4.0}
 BuildRequires:	%{kgcc_package}
 BuildRequires:	rpmbuild(macros) >= 1.118
 ExclusiveArch:	%{ix86}
