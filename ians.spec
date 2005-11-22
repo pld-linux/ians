@@ -89,9 +89,11 @@ cd src
 
 mv -f ../bin/ia32/ians.o ../bin/ia32/ians-smp.o
 %{__make} clean \
+	CC="%{kgcc}" \
 	KSRC=%{_kernelsrcdir}
 
 %{__make} \
+	CC="%{kgcc}" \
 	SMP=0 \
 	KSRC=%{_kernelsrcdir}
 
@@ -105,6 +107,7 @@ install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc
 	MAN_DIR=/usr/share/man \
 	BIN_DIR=/sbin \
 	INSTALL_ROOT=$RPM_BUILD_ROOT \
+	CC="%{kgcc}" \
 	KSRC=%{_kernelsrcdir}
 
 install bin/ia32/ians.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/ians.o
