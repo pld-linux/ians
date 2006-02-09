@@ -1,0 +1,6 @@
+- 1.5.17 (previos was making oops in 2.4.16!)
+- patches updated
+- some cosmetics
+- more docs
+- marked /etc/ians/ians.conf as ghost
+  STBR
