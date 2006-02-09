@@ -23,6 +23,7 @@ BuildRequires:	rpmbuild(macros) >= 1.118
 ExclusiveArch:	%{ix86}
 %{!?_without_dist_kernel:Requires:	kernel(ians) = %{version}}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Conficts:	kernel > 2.6.0
 
 %define		_sysconfdir	/etc/ians
 
@@ -37,7 +38,7 @@ Ten pakiet zawiera linuksowy modu³ ians.o do kart Intel(R) PRO/100,
 który pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan,
 team-work) oraz narzêdzia do zarz±dzania tymi opcjami.
 
-%package -n kernel-net-ians
+%package -n kernel24-net-ians
 Summary:	IANS kernel module for Intel(R) PRO/100
 Summary(pl):	Modu³ IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -47,17 +48,18 @@ Requires(post,postun):	/sbin/depmod
 Requires:	ians = %{version}
 Provides:	kernel(ians) = %{version}
 Obsoletes:	linux-smp-net-ians
+Obsoletes:	kernel-net-ians
 
-%description -n kernel-net-ians
+%description -n kernel24-net-ians
 This package contains module ians.o which allows you to use advanced
 options of Intel cards (vlan, team-work).
 
-%description -n kernel-net-ians -l pl
+%description -n kernel24-net-ians -l pl
 Ten pakiet zawiera linuksowy modu³ ians.o do kart Intel(R) PRO/100,
 który pozwala na sterowanie zaawansowanymi opcjami tych kart (vlan,
 team-work).
 
-%package -n kernel-smp-net-ians
+%package -n kernel24-smp-net-ians
 Summary:	IANS kernel SMP module for Intel(R) PRO/100
 Summary(pl):	Modu³ SMP IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -67,12 +69,13 @@ Requires(post,postun):	/sbin/depmod
 Requires:	ians = %{version}
 Provides:	kernel(ians) = %{version}
 Obsoletes:	linux-net-ians
+Obsoletes:	kernel-smp-net-ians
 
-%description -n kernel-smp-net-ians
+%description -n kernel24-smp-net-ians
 This package contains module ians.o (for SMP systems) which allows you
 to use advanced options of Intel cards (vlan, team-work).
 
-%description -n kernel-smp-net-ians -l pl
+%description -n kernel24-smp-net-ians -l pl
 Ten pakiet zawiera linuksowy (SMP) modu³ ians.o do kart Intel(R)
 PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 (vlan, team-work).
