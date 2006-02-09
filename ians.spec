@@ -1,29 +1,26 @@
 #
 # Conditional build:
-# _without_dist_kernel - without distribution kernel
+%bcond_without	dist_kernel		# without distribution kernel
 #
-
 %define         _kernelsrcdir           /usr/src/linux-2.4
-
+%define	_rel	1
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
 Version:	3.4.3a
-%define	_rel	1
 Release:	%{_rel}
-Group:		Base/Kernel
 License:	BSD (see LICENSE_BINARY)
-Vendor:		Intel Corporation
-Source0:	ftp://aiedownload.intel.com/df-support/5600/eng/ians-%{version}.tar.gz
+Group:		Base/Kernel
+Source0:	ftp://aiedownload.intel.com/df-support/5600/eng/%{name}-%{version}.tar.gz
 # Source0-md5:	6030f3ef19cf0e04cb9c83ecdca50c39
 URL:		http://support.intel.com/support/network/adapter/pro100/
-%{!?_without_dist_kernel:BuildRequires:	kernel24-source > 2.4.0}
 BuildRequires:	%{kgcc_package}
+%{?without_dist_kernel:BuildRequires:	kernel24-source >= 2.4.0}
 BuildRequires:	rpmbuild(macros) >= 1.118
+%{?without_dist_kernel:Requires:	kernel(ians) = %{version}}
+Conflicts:	kernel >= 2.6.0
 ExclusiveArch:	%{ix86}
-%{!?_without_dist_kernel:Requires:	kernel(ians) = %{version}}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Conficts:	kernel > 2.6.0
 
 %define		_sysconfdir	/etc/ians
 
@@ -43,12 +40,12 @@ Summary:	IANS kernel module for Intel(R) PRO/100
 Summary(pl):	Modu³ IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-%{!?_without_dist_kernel:%requires_releq_kernel_up}
+%{!?without_dist_kernel:%requires_releq_kernel_up}
 Requires(post,postun):	/sbin/depmod
 Requires:	ians = %{version}
 Provides:	kernel(ians) = %{version}
-Obsoletes:	linux-smp-net-ians
 Obsoletes:	kernel-net-ians
+Obsoletes:	linux-smp-net-ians
 
 %description -n kernel24-net-ians
 This package contains module ians.o which allows you to use advanced
@@ -64,12 +61,12 @@ Summary:	IANS kernel SMP module for Intel(R) PRO/100
 Summary(pl):	Modu³ SMP IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-%{!?_without_dist_kernel:%requires_releq_kernel_smp}
+%{!?without_dist_kernel:%requires_releq_kernel_smp}
 Requires(post,postun):	/sbin/depmod
 Requires:	ians = %{version}
 Provides:	kernel(ians) = %{version}
-Obsoletes:	linux-net-ians
 Obsoletes:	kernel-smp-net-ians
+Obsoletes:	linux-net-ians
 
 %description -n kernel24-smp-net-ians
 This package contains module ians.o (for SMP systems) which allows you
@@ -107,7 +104,7 @@ install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc
 
 %{__make} install -C src \
-	MAN_DIR=/usr/share/man \
+	MAN_DIR=%{_mandir} \
 	BIN_DIR=/sbin \
 	INSTALL_ROOT=$RPM_BUILD_ROOT \
 	CC="%{kgcc}" \
