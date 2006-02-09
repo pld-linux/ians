@@ -1,0 +1,3 @@
+- added empty base package to remove junk from .src.rpm name
+- use kernel%{smpstr}-*-* naming scheme
+- release 2
