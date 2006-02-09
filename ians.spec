@@ -18,7 +18,6 @@ BuildRequires:	%{kgcc_package}
 %{?without_dist_kernel:BuildRequires:	kernel24-source >= 2.4.0}
 BuildRequires:	rpmbuild(macros) >= 1.118
 %{?without_dist_kernel:Requires:	kernel(ians) = %{version}}
-Conflicts:	kernel >= 2.6.0
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
