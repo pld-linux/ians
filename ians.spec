@@ -20,6 +20,7 @@ BuildRequires:	rpmbuild(macros) >= 1.118
 %{?without_dist_kernel:Requires:	kernel(ians) = %{version}}
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Conflicts:	kernel > 2.6.0
 
 %define		_sysconfdir	/etc/ians
 
@@ -82,7 +83,7 @@ PRO/100, który pozwala na sterowanie zaawansowanymi opcjami tych kart
 %build
 cd src
 %{__make} \
-	CC="%{kgcc} -DCONFIG_X86_LOCAL_APIC" \
+	CC="%{kgcc} -DCONFIG_X86_LOCAL_APIC -D__KERNEL_SMP=1 -D__SMP__" \
 	SMP=1 \
 	KSRC=%{_kernelsrcdir}
 
@@ -115,16 +116,16 @@ install bin/ia32/ians-smp.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc/i
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-n kernel-net-ians
+%post	-n kernel24-net-ians
 %depmod %{_kernel_ver}
 
-%postun	-n kernel-net-ians
+%postun	-n kernel24-net-ians
 %depmod %{_kernel_ver}
 
-%post	-n kernel-smp-net-ians
+%post	-n kernel24-smp-net-ians
 %depmod %{_kernel_ver}smp
 
-%postun	-n kernel-smp-net-ians
+%postun	-n kernel24-smp-net-ians
 %depmod %{_kernel_ver}smp
 
 %files
@@ -134,10 +135,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(755,root,root) %{_sysconfdir}
 %doc README LICENSE
 
-%files -n kernel-net-ians
+%files -n kernel24-net-ians
 %defattr(644,root,root,755)
 %attr(644,root,root) /lib/modules/%{_kernel_ver}/misc/*
 
-%files -n kernel-smp-net-ians
+%files -n kernel24-smp-net-ians
 %defattr(644,root,root,755)
 %attr(644,root,root) /lib/modules/%{_kernel_ver}smp/misc/*
