@@ -18,9 +18,9 @@ BuildRequires:	%{kgcc_package}
 %{?without_dist_kernel:BuildRequires:	kernel24-source >= 2.4.0}
 BuildRequires:	rpmbuild(macros) >= 1.118
 %{?without_dist_kernel:Requires:	kernel(ians) = %{version}}
+Conflicts:	kernel > 2.6.0
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Conflicts:	kernel > 2.6.0
 
 %define		_sysconfdir	/etc/ians
 
@@ -131,14 +131,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/*
-%attr(644,root,root) %{_mandir}/man*/*
-%dir %attr(755,root,root) %{_sysconfdir}
+%{_mandir}/man*/*
+%dir %{_sysconfdir}
 %doc README LICENSE
 
 %files -n kernel24-net-ians
 %defattr(644,root,root,755)
-%attr(644,root,root) /lib/modules/%{_kernel_ver}/misc/*
+/lib/modules/%{_kernel_ver}/misc/*
 
 %files -n kernel24-smp-net-ians
 %defattr(644,root,root,755)
-%attr(644,root,root) /lib/modules/%{_kernel_ver}smp/misc/*
+/lib/modules/%{_kernel_ver}smp/misc/*
