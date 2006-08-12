@@ -15,9 +15,9 @@ Source0:	ftp://aiedownload.intel.com/df-support/5600/eng/%{name}-%{version}.tar.
 # Source0-md5:	6030f3ef19cf0e04cb9c83ecdca50c39
 URL:		http://support.intel.com/support/network/adapter/pro100/
 BuildRequires:	%{kgcc_package}
-%{?without_dist_kernel:BuildRequires:	kernel24-source >= 2.4.0}
+%{?with_dist_kernel:BuildRequires:	kernel24-source >= 2.4.0}
 BuildRequires:	rpmbuild(macros) >= 1.118
-%{?without_dist_kernel:Requires:	kernel(ians) = %{version}}
+%{?with_dist_kernel:Requires:	kernel(ians) = %{version}}
 Conflicts:	kernel > 2.6.0
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -40,7 +40,7 @@ Summary:	IANS kernel module for Intel(R) PRO/100
 Summary(pl):	Modu³ IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-%{!?without_dist_kernel:%requires_releq_kernel_up}
+%{?with_dist_kernel:%requires_releq_kernel_up}
 Requires(post,postun):	/sbin/depmod
 Requires:	ians = %{version}
 Provides:	kernel(ians) = %{version}
@@ -61,7 +61,7 @@ Summary:	IANS kernel SMP module for Intel(R) PRO/100
 Summary(pl):	Modu³ SMP IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-%{!?without_dist_kernel:%requires_releq_kernel_smp}
+%{?with_dist_kernel:%requires_releq_kernel_smp}
 Requires(post,postun):	/sbin/depmod
 Requires:	ians = %{version}
 Provides:	kernel(ians) = %{version}
