@@ -2,8 +2,8 @@
 # Conditional build:
 %bcond_without	dist_kernel		# without distribution kernel
 #
-%define         _kernelsrcdir           /usr/src/linux-2.4
-%define	_rel	2
+%define		_kernelsrcdir	/usr/src/linux-2.4
+%define		_rel	2
 Summary:	IANS utility for Intel(R) PRO/100
 Summary(pl):	Narzêdzie IANS do karty Intel(R) PRO/100
 Name:		ians
