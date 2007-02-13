@@ -5,7 +5,7 @@
 %define		_kernelsrcdir	/usr/src/linux-2.4
 %define		_rel	3
 Summary:	IANS utility for Intel(R) PRO/100
-Summary(pl.UTF-8):   Narzędzie IANS do karty Intel(R) PRO/100
+Summary(pl.UTF-8):	Narzędzie IANS do karty Intel(R) PRO/100
 Name:		ians
 Version:	3.4.3a
 Release:	%{_rel}
@@ -37,7 +37,7 @@ team-work) oraz narzędzia do zarządzania tymi opcjami.
 
 %package -n kernel24-net-ians
 Summary:	IANS kernel module for Intel(R) PRO/100
-Summary(pl.UTF-8):   Moduł IANS do karty Intel(R) PRO/100
+Summary(pl.UTF-8):	Moduł IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_up}
@@ -58,7 +58,7 @@ team-work).
 
 %package -n kernel24-smp-net-ians
 Summary:	IANS kernel SMP module for Intel(R) PRO/100
-Summary(pl.UTF-8):   Moduł SMP IANS do karty Intel(R) PRO/100
+Summary(pl.UTF-8):	Moduł SMP IANS do karty Intel(R) PRO/100
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
